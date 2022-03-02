@@ -1,0 +1,35 @@
+// [4,6,9,1,2,5,3]
+// [3,2,1,4,6,9,5]
+//        4
+//  3,2,1    6,9,5
+//      3      6
+//  2,1      5  9
+//    2
+//  1
+
+________________________________________________________________________________________________
+
+const prviot = function(arr, start = 0, end = arr.length - 1) {
+  const swap = function(arr, left, right) {
+    [arr[left], arr[right]] = [arr[right], arr[left]];
+  }
+  let prviot = arr[start];
+  let swapIndex = start;
+  for (let i = start + 1; i <= end; i ++) {
+    if (prviot > arr[i]) {
+      swapIndex ++;
+      swap(arr, swapIndex, i);
+    }
+  }
+  swap(arr, swapIndex, start);
+  return swapIndex;
+}
+
+const quickSort = function(arr, start = 0, end = arr.length - 1) {
+  if (start < end) {
+    let prviotIndex = prviot(arr, start, end);
+    quickSort(arr, start, prviotIndex - 1);
+    quickSort(arr, prviotIndex + 1, end);
+  }
+  return arr;
+}
