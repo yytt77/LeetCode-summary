@@ -1,0 +1,73 @@
+Given the head of a singly linked list, return true if it is a palindrome.
+
+Example 1:
+Input: head = [1,2,2,1]
+Output: true
+
+Example 2:
+Input: head = [1,2]
+Output: false
+
+___________________________________________________________________________________________________________________________________________________________________
+
+Two method for this problem.
+1. use array to save each node and then check both end;
+
+var isPalindrome = function(head) {
+    let nums = [];
+    while (head) {
+        nums.push(head.val);
+        head = head.next;
+    }
+    let  l = 0; 
+    let r = nums.length - 1;
+    while (l <= r) {
+        if (nums[l] !== nums[r]) {
+            return false;
+        }
+        l ++;
+        r --;
+    }
+    return true;
+}
+
+2. use slow and fast two pointers find mid point, reverse and then compare each node of half reversed second half pointers
+
+var isPalindrome = function(head) {
+    let slow = head;
+    let fast = head;
+    
+    while (fast.next && fast.next.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    
+    // slow is second half linked list
+    slow = slow.next;
+    
+    // reverse the second half linked list
+    slow = reverseList(slow);
+    //check if second half match with first half
+    while (slow) {
+        if (slow.val !== head.val) {
+            return false;
+        } 
+        slow = slow.next;
+        head = head.next;
+    }
+    return true;
+
+};
+
+var reverseList = function(head) {
+    let pre = null;
+    let next = null;
+    
+    while (head) {
+        next = head.next;
+        head.next = pre;
+        pre = head;
+        head = next;
+    }
+    return pre;
+}
