@@ -1,0 +1,46 @@
+Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+
+You should preserve the original relative order of the nodes in each of the two partitions.
+
+1 -> 4 -> 3 -> 2 -> 5 -> 2 
+        | |
+1 -> 2 -> 2 -> 4 -> 3 -> 5
+
+Example 1:
+Input: head = [1,4,3,2,5,2], x = 3
+Output: [1,2,2,4,3,5]
+
+Example 2:
+
+Input: head = [2,1], x = 2
+Output: [1,2]
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+Bascially, we created two empty linked list left and right, if node < x, we add to left, else, we add to right
+
+left 1 -> 2 -> 2
+right 4 -> 3 -> 5
+left -> right
+//output = left.next;
+
+
+var partition = function(head, x) {
+    let left  = new ListNode ();
+    let right = new ListNode ();
+    let leftTail = left;
+    let rightTail = right;
+    while (head) {
+        if (head.val  < x) {
+            leftTail.next = head;
+            leftTail = leftTail.next;
+        } else {
+            rightTail.next = head;
+            rightTail = rightTail.next;
+        }
+        head = head.next;
+    }
+    leftTail.next = right.next;
+    rightTail.next = null;
+    return left.next;
+};
