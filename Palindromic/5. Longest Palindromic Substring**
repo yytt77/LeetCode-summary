@@ -1,0 +1,54 @@
+Given a string s, return the longest palindromic substring in s.
+
+Example 1:
+Input: s = "babad"
+Output: "bab"
+Explanation: "aba" is also a valid answer.
+
+Example 2:
+
+Input: s = "cbbd"
+Output: "bb"
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+/*
+    i position will be:
+    
+    two case: b a b a d
+                  ^
+                  ^
+    or : b a b b a d
+             ^
+               ^
+    
+*/
+
+var longestPalindrome = function(s) {
+    let longest = '';
+    var checkPalindromic = function(left, right) {
+    
+        while (left >= 0 && right < s.length && s[left] === s[right]) {
+            left --;
+            right ++;
+        }
+        // move index and then check condition, so we have to add left 1. 
+        // and slice not including the last item. So it will be end with right
+        return s.slice(left + 1, right);
+    }   
+    
+        for (let i = 0; i < s.length; i++) {
+            let oddPalindromic = checkPalindromic(i, i);
+            let evenPalindromic = checkPalindromic(i, i+ 1);
+
+        if (oddPalindromic.length > longest.length) {
+            longest = oddPalindromic;
+            console.log(i)
+        }
+        if (evenPalindromic.length > longest.length) {
+            longest = evenPalindromic
+        }
+    }
+    
+    return longest;
+};
