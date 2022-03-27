@@ -1,0 +1,66 @@
+Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+
+A substring is a contiguous sequence of characters within the string.
+
+Example 1:
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+
+Example 2:
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+
+Example 3:
+Input: s = "a", t = "aa"
+Output: ""
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+
+____________________________________________________________________________________________________________________________________________________________________
+
+var minWindow = function(s, t) {
+    let  l = 0, r = 0, map = {}, mapT = {}, count = 0, formed = 0;
+    for (var i = 0; i < t.length; i ++) {
+        if (mapT[t[i]] === undefined) {
+            mapT[t[i]] = 1;
+            count ++;
+        } else {
+            mapT[t[i]] ++;
+        }
+    }
+    let min = [0, s.length - 1, Infinity];
+    while (r < s.length) {
+        let c = s.charAt(r);
+        if (map[c] === undefined) {
+            map[c] = 1;
+        } else {
+            map[c] ++;
+        }
+        if (mapT[c] && map[c] === mapT[c]) {
+            formed ++;
+        }
+        while (formed === count && l <= r) {
+            var cL = s.charAt(l);
+            if ((r - l + 1) < min[2]) {
+                min = [l, r, r - l + 1];
+            }
+            map[cL] --;
+            if (mapT[cL] && map[cL] < mapT[cL]) {
+                formed--;
+            }
+            l++;
+        }
+        r++;
+    }
+    
+    if (min[2] === Infinity) {
+        return '';
+    } 
+    return s.substring(min[0], min[1]+1);  
+};
+
+// reference video: https://www.bilibili.com/s/video/BV1bA411L7bY
