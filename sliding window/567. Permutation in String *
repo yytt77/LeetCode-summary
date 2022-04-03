@@ -1,0 +1,60 @@
+Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+
+In other words, return true if one of s1's permutations is the substring of s2.
+
+Example 1:
+Input: s1 = "ab", s2 = "eidbaooo"
+Output: true
+Explanation: s2 contains one permutation of s1 ("ba").
+
+Example 2:
+Input: s1 = "ab", s2 = "eidboaoo"
+Output: false
+
+var checkInclusion = function(s1, s2) {
+    // convert s1 to obj, ex: s1 = 'ab' => {a:1, b: 1}
+    let obj = {};
+    let count = s1.length;
+    for (let item of s1) {
+        if (obj[item] === undefined) {
+            obj[item] = 1;
+        } else {
+            obj[item] ++;
+        }
+    }
+    
+    let left = 0, right = 0;
+    
+    // check if s2 have {a:1, b:1} in every two characters from 0 to s2.length
+    while (right < s2.length) {
+        let char = s2[right];
+        if (obj[char]) {
+            // we use left pointer to find begining of this match;
+            if (count === s1.length) {
+                left = right
+            }
+            count --;
+            obj[char] --;
+            // when count === 0  means {a:0, b :0}, so we say have this permutation substring
+            if (count === 0) {
+                return true;
+            }
+            right ++;
+        } else {
+              // when count === s1.length, we just need to move to next one. character is s2 is not in s1;
+            if (count === s1.length) {
+                right++;
+            } else {
+              //recover obj to origin state and then move right pointer
+                obj[s2[left]] ++;
+                count ++;
+                left++;
+            }
+        }
+    }
+    return false;
+}
+
+
+
+//https://zxi.mytechroad.com/blog/string/leetcode-567-permutation-in-string/
