@@ -1,0 +1,28 @@
+Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+
+Example 1:
+Input: nums = [1,1,1], k = 2
+Output: 2
+
+Example 2:
+Input: nums = [1,2,3], k = 3
+Output: 2
+_____________________________________________________________________________________________________________________________________________________________
+//https://maxming0-github-io.translate.goog/2020/04/26/Subarray-Sum-Equals-K/?_x_tr_sl=zh-CN&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=sc
+var subarraySum = function(nums, k) {
+    let map = {0: 1};
+    let sum = 0;
+    let count = 0;
+    for (let i = 0 ; i < nums.length; i++) {
+        sum += nums[i];
+        if (map[sum - k]) {
+            count += map[sum - k]
+        }
+        if (map[sum]) {
+            map[sum] ++;
+        } else {
+            map[sum] = 1;
+        }
+    }
+    return count;
+};
