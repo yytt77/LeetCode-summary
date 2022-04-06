@@ -1,0 +1,49 @@
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+Notice that the solution set must not contain duplicate triplets.
+
+Example 1:
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+
+Example 2:
+Input: nums = []
+Output: []
+
+Example 3:
+Input: nums = [0]
+Output: []
+________________________________________________________________________________________________________________________________________________________________
+
+  nums.sort((a, b) => a - b);
+  var result = [];
+  
+  for (var i = 0; i < nums.length -2; i++) {
+    // if (nums[i] > 0) {
+    //   break;
+    // }
+    //get ride of dupilicate, for exmaple: [1,1,-1], 1 and 1 is the same, so we just skip to next loop
+    // i> 0 because we compare with one before. we cannot compare with nums[-1];  
+    if (i > 0 && nums[i] === nums[i -1]) {
+      continue;
+    }
+    const target = 0 - nums[i];
+    l = i + 1;
+    r = nums.length - 1;
+    while ( l < r) {
+      const sum = nums[l] + nums[r];
+      if (target > sum) {
+        l ++;
+      } else if (target < sum ) {
+        r --;
+      } else {
+        result.push([nums[i], nums[l], nums[r]]);
+        //get ride of duplicate again
+        while(nums[l] === nums[l+1]) l++;
+        while(nums[r] === nums[r - 1]) r--;
+        l++;
+        r--
+      }
+    }
+  }
+    return result;
