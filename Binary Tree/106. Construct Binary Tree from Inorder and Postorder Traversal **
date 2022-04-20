@@ -1,0 +1,25 @@
+Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.
+
+Example 1:
+Input: inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]
+Output: [3,9,20,null,null,15,7]
+
+Example 2:
+Input: inorder = [-1], postorder = [-1]
+Output: [-1]
+
+_________________________________________________________________________________________________________________________________________________________________
+
+var buildTree = function(inorder, postorder) {
+    if (!inorder.length || !postorder.length) {
+        return null;
+    }
+    var val = postorder.pop();
+    var mid = inorder.indexOf(val);
+    var root = new TreeNode(val);
+    
+    root.left = buildTree(inorder.slice(0, mid), postorder.slice(0, mid));
+    root.right = buildTree(inorder.slice(mid + 1), postorder.slice(mid));
+    return root
+};
+
