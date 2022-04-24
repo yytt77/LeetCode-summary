@@ -1,0 +1,30 @@
+Given a binary tree, determine if it is height-balanced.
+
+For this problem, a height-balanced binary tree is defined as:
+
+a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+
+Example 1:
+Input: root = [3,9,20,null,null,15,7]
+Output: true
+
+Example 2:
+Input: root = [1,2,2,3,3,null,null,4,4]
+Output: false
+
+Example 3:
+Input: root = []
+Output: true
+_________________________________________________________________________________________________________________________________
+
+var isBalanced = function(root) {
+       if(!root) return true
+	// calculate the depth of each node
+    const helper = (node, depth = 0) => {
+        if (!node) return depth
+        return Math.max(helper(node.right,depth+1), helper(node.left,depth+1))
+    }
+	
+	// make sure different node have both side (right and left) and height between two of them not more than 1.
+    return isBalanced(root.right) && isBalanced(root.left) && Math.abs(helper(root.right) - helper(root.left)) <= 1
+};
