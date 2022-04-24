@@ -1,0 +1,51 @@
+Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+
+Example 1:
+Input: root = [1,2,2,3,4,4,3]
+Output: true
+
+Example 2:
+Input: root = [1,2,2,null,3,null,3]
+Output: false
+
+_________________________________________________________________________________________________________________
+
+var isSymmetric = function(root) {
+
+//     let l = [root.left];
+//     let r = [root.right];
+//     console.log(l,'and ', r);
+//     while(l.length && r.length) {
+//         let left = l.shift();
+//         let right = r.shift();
+//         if (!left && ! right) {
+//             continue;
+//         }
+//         if (!left || ! right) {
+//             return false;
+//         }
+//         if (left.val !== right.val) return false;
+//             l.push(left.left);
+//             r.push(right.right);
+//             l.push(left.right);
+//             r.push(right.left);
+        
+//     }
+//     return true;
+    
+    if (!root) return null;
+    
+    function DFS(left, right) {
+        if (!left && !right) {
+            return true;
+        }
+        if (!left || !right || left.val !== right.val) {
+            return false
+        }
+        return DFS(left.left, right.right) && DFS(left.right, right.left);
+    }
+    
+    return DFS(root.left, root.right);
+    return true
+    
+};
