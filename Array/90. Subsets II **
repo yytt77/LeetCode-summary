@@ -1,0 +1,30 @@
+Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+Example 1:
+Input: nums = [1,2,2]
+Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+
+Example 2:
+Input: nums = [0]
+Output: [[],[0]]
+___________________________________________________________________________________________________________
+
+var subsetsWithDup = function(nums) {
+    nums = nums.sort((a,b) => a-b);
+    var res = [[]];
+    const dfs = function(i, recorder) {
+        
+        for (var j = i; j < nums.length; j++) {
+            // not same value; [1,2,2]; i !== j && nums[j] === nums[j-1] is to check if second value and third are same
+            //and i and j is not pointed to same value
+            if (i !== j && nums[j] === nums[j-1]) continue;
+            recorder.push(nums[j]);
+            res.push(recorder.slice());
+            dfs(j + 1, recorder);
+            recorder.pop();
+        }
+    }
+    dfs(0, []);
+    return res;
+};
