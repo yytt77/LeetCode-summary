@@ -1,0 +1,44 @@
+Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.
+A palindrome string is a string that reads the same backward as forward.
+
+Example 1:
+Input: s = "aab"
+Output: [["a","a","b"],["aa","b"]]
+
+Example 2:
+Input: s = "a"
+Output: [["a"]]
+____________________________________________________________________________________________________________________________________________
+
+var validatePalindrome = function(arr, start, end) {
+
+    while (start < end) {
+        if (arr[start] === arr[end]) {
+            start++;
+            end--;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+var partition = function(s) {
+    var res = [];
+    const dfs = function(i, recorder) {
+        if (i === s.length) {
+              res.push(recorder.slice());   
+            return
+        }
+        for (let j = i; j < s.length; j++) {
+            // console.log('we have', s.slice(i, j +1))
+            if (validatePalindrome(s, i, j)) {
+                recorder.push(s.slice(i, j +1));
+                dfs(j + 1, recorder);
+                recorder.pop();
+            }
+        }
+    }
+    dfs(0, []);
+    return res;
+};
