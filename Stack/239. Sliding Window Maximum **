@@ -20,18 +20,22 @@ Output: [1]
 _______________________________________________________________________________________________________________________________________________________
 
  var maxSlidingWindow = function(nums, k) {
-    const q = [];
-    const res = [];
-    for (let i = 0; i < nums.length; i ++) {
-        while (q && nums[q[q.length -1]] <= nums[i]) {
-            q.pop();
+    const stack = [];
+    let res =[];
+    for (var i = 0; i < nums.length; i++) {
+        while (stack && nums[stack[stack.length - 1]] < nums[i]) {
+            stack.pop();
         }
-        q.push(i);
-        if (q[0] === i- k) {
-            q.shift();
+        stack.push(i);
+        
+        //when first index in stack is out of range, shift it
+        if (stack[0] === i - k) {
+            stack.shift();
         }
-        if (i >= k -1){
-            res.push(nums[q[0]]);
+        // start to add max value to res;
+        //max value always is first value;
+        if (i - k >= -1) {
+            res.push(nums[stack[0]])
         }
     }
     return res;
