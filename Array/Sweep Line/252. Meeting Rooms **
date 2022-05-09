@@ -24,7 +24,6 @@ var canAttendMeetings = function(intervals) {
         }
         return x[1] - y[1];
     })
-    console.log('this', timeMapArr)
     let res = 0;
     let temp = 0;
     for (var i = 0; i < timeMapArr.length; i++) {
