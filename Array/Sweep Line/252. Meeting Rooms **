@@ -1,0 +1,46 @@
+Given an array of meeting time intervals where intervals[i] = [starti, endi], determine if a person could attend all meetings.
+
+Example 1:
+Input: intervals = [[0,30],[5,10],[15,20]]
+Output: false
+
+Example 2:
+Input: intervals = [[7,10],[2,4]]
+Output: true
+_____________________________________________________________________________________________________________________________________
+
+// By using template
+var canAttendMeetings = function(intervals) {
+    
+    let timeMapArr = [];
+    for (var i = 0; i <intervals.length; i++) {
+        timeMapArr.push([intervals[i][0], 1]);
+        timeMapArr.push([intervals[i][1], -1]);
+    }
+    
+    timeMapArr.sort((x,y) => {
+        if (x[0] !== y[0]) {
+         return x[0] - y[0];
+        }
+        return x[1] - y[1];
+    })
+    console.log('this', timeMapArr)
+    let res = 0;
+    let temp = 0;
+    for (var i = 0; i < timeMapArr.length; i++) {
+        temp += timeMapArr[i][1];
+        res = Math.max(res, temp);
+    }
+    return res < 2;
+};
+_________________________________________________________________________________________________________________________________________
+// eaiser solution
+var canAttendMeetings = function(intervals) {
+    intervals.sort((a, b) => a.start - b.start);
+    
+    // can't attend if the next meeting starts before the previous ends
+    for (let i = 1; i < intervals.length; i++)
+        if (intervals[i].start < intervals[i-1].end) return false;
+        
+    return true;
+};
