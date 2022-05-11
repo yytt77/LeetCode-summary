@@ -1,0 +1,64 @@
+You are given an m x n grid where each cell can have one of three values:
+
+0 representing an empty cell,
+1 representing a fresh orange, or
+2 representing a rotten orange.
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+Example 1:
+Input: grid = [[2,1,1],[1,1,0],[0,1,1]]
+Output: 4
+
+Example 2:
+Input: grid = [[2,1,1],[0,1,1],[1,0,1]]
+Output: -1
+Explanation: The orange in the bottom left corner (row 2, column 0) is never rotten, because rotting only happens 4-directionally.
+
+Example 3:
+Input: grid = [[0,2]]
+Output: 0
+Explanation: Since there are already no fresh oranges at minute 0, the answer is just 0.
+______________________________________________________________________________________________________________________________________
+
+
+var orangesRotting = function(grid) {
+    if (grid.length === 0) return -1;
+    let moves=[[1,0],[-1,0],[0,-1],[0,1]]
+    let freshOrange = 0;
+    let q = [];
+    const m = grid.length;
+    const n = grid[0].length;
+    
+    for (var i = 0; i < m; i++) {
+        for (var j = 0; j < n; j++) {
+            if (grid[i][j] === 2) q.push([i, j]);
+            if (grid[i][j] === 1) freshOrange ++;
+        }
+    }
+    if (freshOrange === 0) {
+        return 0;
+    }
+    
+    // console.log(q)
+    // q will be the cordination of rotten orange. [0,0] in this case
+    let res = 0;
+    while (q.length > 0) {
+        let len = q.length;
+        if (freshOrange === 0) return res;
+        res ++;
+        for (let i = 0 ; i < len; i++) {
+            let [x, y]  = q.shift();
+            for (let [dx, dy] of moves) {
+                let newX  = dx + x, newY = dy + y;
+                if (newX >= 0 && newY >= 0 && newX < m && newY < n && grid[newX][newY] === 1) {
+                    grid[newX][newY] = 2;
+                    freshOrange --;
+                    q.push([newX, newY]);
+                }
+            }
+        }
+    }
+    return -1;
+};
