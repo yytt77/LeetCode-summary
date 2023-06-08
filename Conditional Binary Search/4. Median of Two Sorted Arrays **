@@ -13,12 +13,36 @@ Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
 ___________________________________________________________________________________________________________________________________________________________________________
 
 var findMedianSortedArrays = function(nums1, nums2) {
-    let mergedArr = [...nums1, ...nums2].sort((a,b) => a-b);
-    if(mergedArr.length % 2 === 0) {
-        let mid = Math.floor((0+mergedArr.length-1)/2);
-        return ((mergedArr[mid] + mergedArr[mid+1])/2);
-    } else {
-        let mid = Math.floor((0+mergedArr.length-1)/2);
-        return mergedArr[mid];
-    }
+    const x = nums1.length; 
+    const y = nums2.length;
+    let count = 0;
+    let total = 0;
+    let odd = false;
+    let devider = 2;
+    let medianIndex  = Math.ceil((x + y) / 2);
+    if ( (x + y) % 2 === 1)  {
+      odd = true;
+      devider = 1;
+    }  
+    while (nums1.length || nums2.length) {
+        let res;
+        if (nums1[0] < nums2[0] && (nums1.length !== 0) || (nums2.length === 0)) {
+          res = nums1.shift();
+          count ++;
+        } else {
+          res = nums2.shift();
+          count ++;
+        }
+        
+        if (count === medianIndex && odd) {
+          total += res;
+          console.log('this is ', total)
+        }
+        
+        if((count === medianIndex || count === medianIndex + 1) && !odd) {
+          total += res;
+                    console.log('this iss ', res)
+        }
+      }
+      return total / devider;
 }
