@@ -15,6 +15,7 @@ Example 2:
 Input: arr = [1,2,3,4,5], k = 4, x = -1
 Output: [1,2,3,4]
 
+Reference:// https://www.google.com/search?sxsrf=APwXEddxZ0Jv1PWUuy1K-JZ6vdvyCmazrA:1686248377304&q=658.+find+k+closest+elements&tbm=vid&sa=X&ved=2ahUKEwj0yKDcpLT_AhU9E1kFHcKRBX8Q0pQJegQIQhAB&biw=1745&bih=917&dpr=1.1#fpstate=ive&vld=cid:1bfd3df6,vid:gfwLpRYbCx0
 ___________________________________________________________________________________________________________________________________________________________________________________
 
 var findClosestElements = function(arr, k, x) {
