@@ -7,6 +7,7 @@
 //    2
 //  1
 
+https://www.google.com/search?sxsrf=APwXEddG2s9umd4CnDjww2DJ0mzkPIVtgA:1686358795422&q=quick+sort+js&tbm=vid&sa=X&ved=2ahUKEwi91tuHwLf_AhV1GFkFHfTXAawQ0pQJegQIChAB&biw=1745&bih=881&dpr=1.1#fpstate=ive&vld=cid:9c048bcd,vid:GfM5z7_WGQE
 ________________________________________________________________________________________________
 
 const prviot = function(arr, start = 0, end = arr.length - 1) {
