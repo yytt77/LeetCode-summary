@@ -1,0 +1,52 @@
+Given an integer array nums and an integer k, return the kth largest element in the array.
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+You must solve it in O(n) time complexity.
+
+Example 1:
+Input: nums = [3,2,1,5,6,4], k = 2
+Output: 5
+
+Example 2:
+Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
+Output: 4
+
+https://www.google.com/search?q=215.+kth+largest+element+in+an+array&tbm=vid&sxsrf=APwXEddgWO3mh7qFQSyIf3wb_KzFedV1TQ:1686578090912&ei=qiOHZOWiN_yeptQPlOawmA4&start=10&sa=N&ved=2ahUKEwjln_r_8L3_AhV8j4kEHRQzDOMQ8NMDegQIDxAW&biw=1745&bih=917&dpr=1.1#fpstate=ive&vld=cid:ede2350f,vid:zOmIKYKpzB4
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+var findKthLargest = function(nums, k) {
+    if (nums.length === 0 || nums === null) {
+        return 0;
+    }
+    let low = 0;
+    let high = nums.length - 1;
+    while (low <= high) {
+        let povitId = povit(nums, low, high);
+        if ( nums.length - povitId === k ) {
+            return nums[povitId];
+        } else if (nums.length - povitId < k ) {
+            high = povitId - 1;
+        } else {
+            low = povitId  + 1; 
+        }
+    }
+    return -1;
+};
+
+
+let povit = function(nums, left, right) {
+    let p = right;
+    let j = left;
+    let i = left - 1;
+    while (j < p) {
+        if (nums[j] < nums[p]) {
+            i++;
+            [nums[i], nums[j]] = [nums[j], nums[i]];
+            j++;
+        } else {
+            j++;
+        }
+    }
+    i++;
+    [nums[i], nums[p]] = [nums[p], nums[i]];
+    return i;
+}
