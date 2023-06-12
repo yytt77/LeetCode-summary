@@ -10,20 +10,23 @@
 https://www.google.com/search?sxsrf=APwXEddG2s9umd4CnDjww2DJ0mzkPIVtgA:1686358795422&q=quick+sort+js&tbm=vid&sa=X&ved=2ahUKEwi91tuHwLf_AhV1GFkFHfTXAawQ0pQJegQIChAB&biw=1745&bih=881&dpr=1.1#fpstate=ive&vld=cid:9c048bcd,vid:GfM5z7_WGQE
 ________________________________________________________________________________________________
 
-const prviot = function(arr, start = 0, end = arr.length - 1) {
-  const swap = function(arr, left, right) {
-    [arr[left], arr[right]] = [arr[right], arr[left]];
-  }
-  let prviot = arr[start];
-  let swapIndex = start;
-  for (let i = start + 1; i <= end; i ++) {
-    if (prviot > arr[i]) {
-      swapIndex ++;
-      swap(arr, swapIndex, i);
+let pivot = function (nums, left, right) {
+    let p = right;
+    let j = left;
+    let i = left - 1;
+
+    while (j < p) {
+        if (nums[j] < nums[p]) {
+            i++;
+            [nums[i], nums[j]] = [nums[j], nums[i]];
+            j++;
+        } else {
+            j++;
+        }
     }
-  }
-  swap(arr, swapIndex, start);
-  return swapIndex;
+    i++;
+    [nums[i], nums[p]] = [nums[p], nums[i]];
+    return i;
 }
 
 const quickSort = function(arr, start = 0, end = arr.length - 1) {
