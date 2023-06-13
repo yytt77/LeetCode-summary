@@ -1,0 +1,30 @@
+Given an array of integers arr, sort the array by performing a series of pancake flips.
+In one pancake flip we do the following steps:
+Choose an integer k where 1 <= k <= arr.length.
+Reverse the sub-array arr[0...k-1] (0-indexed).
+For example, if arr = [3,2,1,4] and we performed a pancake flip choosing k = 3, we reverse the sub-array [3,2,1], so arr = [1,2,3,4] after the pancake flip at k = 3.
+Return an array of the k-values corresponding to a sequence of pancake flips that sort arr. Any valid answer that sorts the array within 10 * arr.length flips will be judged as correct
+
+
+https://www.google.com/search?q=969.+pancake+sorting&tbm=vid&sxsrf=APwXEdcqSij3TSwbN0QTxnkHVHKYfDhAJg:1686611793968&ei=UaeHZLPcOsWIptQPvZO14AI&start=0&sa=N&ved=2ahUKEwjzyOnG7r7_AhVFhIkEHb1JDSw4UBDy0wN6BAgPEAQ&biw=1745&bih=917&dpr=1.1#fpstate=ive&vld=cid:42a0e21c,vid:e-5R_OmGFXQ
+_______________________________________________________________________________________________________
+
+var pancakeSort = function(arr) {
+    let res = [];
+    for (let i = arr.length - 1; i > 0; i--) {
+        //put max i number to front and then to the correct spot
+        // for example [3,2,4,1]
+        //find 4 first, record index and put the first one and then record i and then remove 4 to the last
+        //find 3 first, record index and put first and then record i and then move 3 to the last second
+        //...
+        let index = arr.indexOf(Math.max(0, i + 1));
+        if (index !== i) {
+            res.push(index + 1);
+            arr = arr.slice(0, index + 1).reverse().concat(arr.slice(index + 1));
+            res.push(i + 1);
+            arr = arr.slice(0, i + 1).reverse().concat(arr.slice(i + 1));
+        }
+    }
+    return res;
+};
+
