@@ -36,6 +36,7 @@ Output: No intersection
 Explanation: From the head of A, it reads as [2,6,4]. From the head of B, it reads as [1,5]. Since the two lists do not intersect, intersectVal must be 0, while skipA and skipB can be arbitrary values.
 Explanation: The two lists do not intersect, so return null.
 
+https://www.google.com/search?tbm=vid&sxsrf=APwXEdd69h4z4z6xOrmkeKJqw7N2dFjXZw:1686625621641&q=160.+Intersection+of+Two+Linked+Lists&sa=X&ved=2ahUKEwit06-Ior__AhW8EFkFHT0MB5wQ8ccDegQIEhAJ&biw=1745&bih=917&dpr=1.1#fpstate=ive&vld=cid:ce860735,vid:NufEjdUBpgg
 __________________________________________________________________________________________________________________________________________________________________
 
 //The length of listA + length of listB = length of listB + length of listA
