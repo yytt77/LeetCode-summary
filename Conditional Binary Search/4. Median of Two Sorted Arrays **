@@ -13,36 +13,37 @@ Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
 ___________________________________________________________________________________________________________________________________________________________________________
 
 var findMedianSortedArrays = function(nums1, nums2) {
-    const x = nums1.length; 
-    const y = nums2.length;
-    let count = 0;
-    let total = 0;
-    let odd = false;
-    let devider = 2;
-    let medianIndex  = Math.ceil((x + y) / 2);
-    if ( (x + y) % 2 === 1)  {
-      odd = true;
-      devider = 1;
-    }  
-    while (nums1.length || nums2.length) {
-        let res;
-        if (nums1[0] < nums2[0] && (nums1.length !== 0) || (nums2.length === 0)) {
-          res = nums1.shift();
-          count ++;
-        } else {
-          res = nums2.shift();
-          count ++;
-        }
-        
-        if (count === medianIndex && odd) {
-          total += res;
-          console.log('this is ', total)
-        }
-        
-        if((count === medianIndex || count === medianIndex + 1) && !odd) {
-          total += res;
-                    console.log('this iss ', res)
-        }
+    // https://www.google.com/search?q=4.+Median+of+Two+Sorted+Arrays+video+%E7%8C%AB%E6%89%93%E7%90%83&biw=1745&bih=917&tbm=vid&sxsrf=APwXEddpPZC0aWO2FnuguO-vxdem2Clwgg%3A1686274777284&ei=2YKCZK3yELvtptQPwcyBiA0&ved=0ahUKEwjtwt-Ih7X_AhW7tokEHUFmANE4WhDh1QMIDQ&uact=5&oq=4.+Median+of+Two+Sorted+Arrays+video+%E7%8C%AB%E6%89%93%E7%90%83&gs_lcp=Cg1nd3Mtd2l6LXZpZGVvEAMyBQgAEKIEMgUIABCiBDIFCAAQogQyBQgAEKIEOgQIIxAnOgUIIRCgAToFCCEQqwI6CAghEBYQHhAdUN8FWJUjYK4qaABwAHgAgAF8iAHWCJIBAzcuNZgBAKABAcABAQ&sclient=gws-wiz-video#fpstate=ive&vld=cid:9d73cd22,vid:ScCg9v921ns
+  if (nums1.length > nums2.length) {
+    [nums1, nums2] = [nums2, nums1]; // Swap arrays if nums1 is longer
+  }
+
+  const m = nums1.length;
+  const n = nums2.length;
+  let low = 0;
+  let high = m;
+
+  while (low <= high) {
+    const mid1 = Math.floor((low + high) / 2);
+    const mid2 = Math.floor((m + n + 1) / 2) - mid1;
+    
+    const L1 = mid1 > 0 ? nums1[mid1 - 1] : -Infinity;
+    const R1 = mid1 < m ? nums1[mid1] : Infinity;
+
+    const L2 = mid2 > 0 ? nums2[mid2 - 1] : -Infinity;
+    const R2 = mid2 < n ? nums2[mid2] : Infinity;
+
+console.log('result four, L1', L1, 'R1', R1, 'L2', L2, 'R2', R2)
+    if (L1 <= R2 && L2 <= R1) {
+      if ((m + n) % 2 === 0) {
+        return (Math.max(L1, L2) + Math.min(R1, R2)) / 2;
+      } else {
+        return Math.max(L1, L2);
       }
-      return total / devider;
+    } else if (L1 > R2) {
+      high = mid1 - 1;
+    } else {
+      low = mid1 + 1;
+    }
+  }
 }
