@@ -38,3 +38,34 @@ var combine = function(n, k) {
     dfs(1, [])
     return res;
 };
+______________________________________________________________________________________________________________
+
+This is a second way
+var combine = function(n, k) {
+    let nums = [];
+    for (let i = 1; i <= n; i++) {
+        nums.push(i);
+    }
+    let res = [];
+    let used = [];
+    let dfs = function(j, recorder) {
+        if (recorder.length === k) {
+            return res.push(recorder.slice())
+        }
+        for (let i = j; i < nums.length; i++) {
+            if (used[i]) {
+                continue;
+            } 
+            used[i] = true;
+            recorder.push(nums[i]);
+            dfs(i, recorder);
+            recorder.pop()
+            used[i] = false;
+        }
+    }
+    dfs(0, [])
+    return res;
+};
+
+
+
