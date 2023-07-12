@@ -13,6 +13,8 @@ Example 2:
 Input: prices = [7,6,4,3,1]
 Output: 0
 Explanation: In this case, no transactions are done and the max profit = 0.
+
+https://www.youtube.com/watch?v=USEFjOtuyA4&ab_channel=happygirlzt
 ___________________________________________________________________________________________________________________________________________________
 var maxProfit = function(prices) {
     let min = prices[0];
