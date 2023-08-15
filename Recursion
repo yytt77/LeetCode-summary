@@ -1,1 +1,34 @@
+String only has 3 possible types of characters, ‘J’, ‘K’, and ‘?’, for each ‘?’, replace it with either ‘J’ or ‘K’, print out all possible string after replacing all ‘?’ in string.
+For example, string s = "JK?" -> output: [JKJ, JKK]
+____________________________________________________________________________________________
 
+function generateStrings(s) {
+    const possibleStrings = [];
+    let temp = [];
+    function backtrack(index, current) {
+        if (index === s.length) {
+            possibleStrings.push(current);
+            return;
+        }
+        
+        if (s[index] === '?') {
+            for (let i = 0; i < temp.length; i++) {
+              backtrack(index + 1, current + temp[i]);
+            }
+        } else {
+            temp.push(s[index])
+            backtrack(index + 1, current + s[index]);
+        }
+    }
+    
+    backtrack(0, '');
+    return possibleStrings;
+}
+
+const inputString1 = "JK?";
+const output1 = generateStrings(inputString1);
+console.log(output1);
+
+const inputString2 = "AB?";
+const output2 = generateStrings(inputString2);
+console.log(output2);
