@@ -1,0 +1,29 @@
+function generateStrings(s) {
+  let res = [];
+  let temp = [];
+  function dfs(index, recorder){
+    if (index === s.length){
+      res.push(recorder);
+      return
+    }
+
+    if (s[index] === '?') {
+      for (let i = 0 ; i < temp.length; i++) {
+        dfs(index +1, recorder +temp[i]);
+      }
+    } else {
+      temp.push(s[index]);
+      dfs(index +1, recorder + s[index]);
+    }
+  }
+  dfs(0, '')
+  return res;
+}
+
+const inputString1 = "JK?";
+const output1 = generateStrings(inputString1);
+console.log(output1);
+
+const inputString2 = "AB?";
+const output2 = generateStrings(inputString2);
+console.log(output2);
